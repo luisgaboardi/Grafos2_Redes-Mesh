@@ -5,33 +5,104 @@ import os
 
 root = Tk()
 root.title("Redes Mesh e seu trajeto até os dispositivos")
+root.geometry("675x900")
 
 intro = Label(root, text="\nFoi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais dois repetidores Mesh, sendo o posicionamento deles arbitrário por você.\nObs: Quanto menor o número de repetidores percorridos, melhor é a qualidade do sinal.\n")
 intro.pack()
 
-imagem = Image.open("imagens/planta.png").resize((650, 350), Image.ANTIALIAS)
-imagem = ImageTk.PhotoImage(imagem)
-imgLabel = Label(image=imagem)
+imagem = PhotoImage(file="imagens/planta.png")
+imgLabel = Label(root, image=imagem)
 imgLabel.pack()
 
 # A partir da esquerda, sentido horário
-comodos = {'Suite Master':    ['Closet Master', 'Media', 'Varanda'],
-           'Closet Master':   ['Closet Quarto 3', 'Quarto 3', 'Quarto 2', 'Media', 'Suite Master'],
-           'Closet Quarto 3': ['Quarto 3', 'Quarto 2', 'Closet Master'],
-           'Quarto 3':        ['Quarto 2', 'Closet Master', 'Closet Quarto 3'],
-           'Quarto 2':        ['Quarto 3', 'Media', 'Closet Master', 'Closet Quarto 3'],
-           'Media':           ['Closet Master', 'Quarto 2', 'Escritório', 'Varanda'],
-           'Escritório':      ['Media', 'Cozinha', 'Varanda'],
-           'Cozinha':         ['Sala de Jantar', 'Escritório', 'Sala'],
-           'Sala de Jantar':  ['Cozinha', 'Sala'],
-           'Sala':            ['Varanda', 'Escritório', 'Cozinha', 'Sala de Jantar'],
-           'Varanda':         []
+comodos = []
+for i in range(10):
+  comodos = comodos + [[0]*10]
+
+# Definindo o alcance de cada cômodo (arestas) utlizando matriz de arestas
+#Suite Master
+comodos[0][0] = 1
+comodos[0][1] = 1
+comodos[0][5] = 1
+
+#Closet Master
+comodos[1][0] = 1
+comodos[1][1] = 1
+comodos[1][2] = 1
+comodos[1][3] = 1
+comodos[1][4] = 1
+comodos[1][5] = 1
+
+#Closet Quarto 3
+comodos[2][1] = 1
+comodos[2][2] = 1
+comodos[2][3] = 1
+comodos[2][4] = 1
+
+#Quarto 3
+comodos[3][1] = 1
+comodos[3][2] = 1
+comodos[3][3] = 1
+comodos[3][4] = 1
+
+#Quarto 2
+comodos[4][1] = 1
+comodos[4][2] = 1
+comodos[4][3] = 1
+comodos[4][4] = 1
+comodos[4][5] = 1
+
+#Media
+comodos[5][1] = 1
+comodos[5][4] = 1
+comodos[5][5] = 1
+comodos[5][6] = 1
+
+#Escritório
+comodos[6][5] = 1
+comodos[6][6] = 1
+comodos[6][7] = 1
+
+#Cozinha
+comodos[7][6] = 1
+comodos[7][7] = 1
+comodos[7][8] = 1
+comodos[7][9] = 1
+
+#Sala de Jantar
+comodos[8][7] = 1
+comodos[8][8] = 1
+comodos[8][9] = 1
+
+#Sala
+comodos[9][6] = 1
+comodos[9][7] = 1
+comodos[9][8] = 1
+comodos[9][9] = 1
+
+comodostxt = ['Suite Master', 'Closet Master', 'Closet Quarto 3', 'Quarto 3', 'Quarto 2', 'Media', 'Escritorio', 'Cozinha', 'Sala de Jantar', 'Sala']
+
+'''
+comodos = {0 'Suite Master':    ['Closet Master', 'Media'],
+           1 'Closet Master':   ['Closet Quarto 3', 'Quarto 3', 'Quarto 2', 'Media', 'Suite Master'],
+           2 'Closet Quarto 3': ['Quarto 3', 'Quarto 2', 'Closet Master'],
+           3 'Quarto 3':        ['Quarto 2', 'Closet Master', 'Closet Quarto 3'],
+           4 'Quarto 2':        ['Quarto 3', 'Media', 'Closet Master', 'Closet Quarto 3'],
+           5 'Media':           ['Closet Master', 'Quarto 2', 'Escritório'],
+           6 'Escritório':      ['Media', 'Cozinha'],
+           7 'Cozinha':         ['Sala de Jantar', 'Escritório', 'Sala'],
+           8 'Sala de Jantar':  ['Cozinha', 'Sala'],
+           9 'Sala':            ['Escritório', 'Cozinha', 'Sala de Jantar'],
           }
+'''
 
+localDeAcesso = {}
 
-def atualiza_imagem(*args):
-  pass
-  #print('Detectei mudança de valor')
+def atualiza_imagem(value):
+  if value == 'Media':
+    img2 = ImageTk.PhotoImage(Image.open("imagens/media.png"))
+    imgLabel.configure(image=img2)
+    imgLabel.image = img2
 
 
 label = Label(text="_________________________________________________________________")
@@ -42,13 +113,12 @@ label.pack()
 
 
 router_options = []
-for item in comodos:
+for item in comodostxt:
     router_options.append(item)
 clicked = StringVar()
 clicked.set(router_options[0])
-clicked.trace("w", atualiza_imagem)
 
-OptionMenu(root, clicked, *router_options).pack(padx=100)
+OptionMenu(root, clicked, *router_options, command=atualiza_imagem).pack(padx=100)
 
 
 
@@ -56,11 +126,10 @@ label = Label(text="\nSelecione o cômodo onde será posicionado o primeiro repe
 label.pack()
 
 rep1_options = []
-for item in comodos:
+for item in comodostxt:
     rep1_options.append(item)
 clicked = StringVar()
 clicked.set(rep1_options[0])
-clicked.trace("w", atualiza_imagem)
 
 OptionMenu(root, clicked, *rep1_options).pack(padx=100)
 
@@ -69,11 +138,10 @@ label = Label(text="\nSelecione o cômodo do segundo repetidor:")
 label.pack()
 
 rep2_options = []
-for item in comodos:
+for item in comodostxt:
     rep2_options.append(item)
 clicked = StringVar()
 clicked.set(rep2_options[0])
-clicked.trace("w", atualiza_imagem)
 
 OptionMenu(root, clicked, *rep2_options).pack(padx=100)
 
@@ -84,11 +152,10 @@ label = Label(text="\nDado um celular acessando a internet no cômodo:")
 label.pack()
 
 device_options = []
-for item in comodos:
+for item in comodostxt:
     device_options.append(item)
 clicked = StringVar()
 clicked.set(device_options[0])
-clicked.trace("w", atualiza_imagem)
 
 OptionMenu(root, clicked, *device_options).pack(padx=100)
 
