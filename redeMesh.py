@@ -9,7 +9,7 @@ root.title("Redes Mesh e seu trajeto até os dispositivos")
 intro = Label(root, text="\nFoi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais dois repetidores Mesh, sendo o posicionamento deles arbitrário por você.\nObs: Quanto menor o número de repetidores percorridos, melhor é a qualidade do sinal.\n")
 intro.pack()
 
-imagem = Image.open("planta.png").resize((650, 350), Image.ANTIALIAS)
+imagem = Image.open("imagens/planta.png").resize((650, 350), Image.ANTIALIAS)
 imagem = ImageTk.PhotoImage(imagem)
 imgLabel = Label(image=imagem)
 imgLabel.pack()
@@ -30,6 +30,7 @@ comodos = {'Suite Master':    ['Closet Master', 'Media', 'Varanda'],
 
 
 def atualiza_imagem(*args):
+  pass
   #print('Detectei mudança de valor')
 
 
