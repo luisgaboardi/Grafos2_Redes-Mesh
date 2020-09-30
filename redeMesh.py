@@ -50,11 +50,9 @@ comodos[4][1] = 1
 comodos[4][2] = 1
 comodos[4][3] = 1
 comodos[4][4] = 1
-comodos[4][5] = 1
 
 #Media
 comodos[5][1] = 1
-comodos[5][4] = 1
 comodos[5][5] = 1
 comodos[5][6] = 1
 
@@ -87,8 +85,8 @@ comodos = {0 'Suite Master':    ['Closet Master', 'Media'],
            1 'Closet Master':   ['Closet Quarto 3', 'Quarto 3', 'Quarto 2', 'Media', 'Suite Master'],
            2 'Closet Quarto 3': ['Quarto 3', 'Quarto 2', 'Closet Master'],
            3 'Quarto 3':        ['Quarto 2', 'Closet Master', 'Closet Quarto 3'],
-           4 'Quarto 2':        ['Quarto 3', 'Media', 'Closet Master', 'Closet Quarto 3'],
-           5 'Media':           ['Closet Master', 'Quarto 2', 'Escritório'],
+           4 'Quarto 2':        ['Quarto 3', 'Closet Master', 'Closet Quarto 3'],
+           5 'Media':           ['Closet Master', 'Escritório'],
            6 'Escritório':      ['Media', 'Cozinha'],
            7 'Cozinha':         ['Sala de Jantar', 'Escritório', 'Sala'],
            8 'Sala de Jantar':  ['Cozinha', 'Sala'],
@@ -97,8 +95,46 @@ comodos = {0 'Suite Master':    ['Closet Master', 'Media'],
 '''
 
 localDeAcesso = {}
+pos_rot = ''
+pos_rep1 = ''
 
-def atualiza_imagem(value):
+def atualiza_pos_rot(value):
+  global pos_rot
+  pos_rot = value
+  imgPath = "imagens/" + value + ".png"
+  img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  imgLabel.configure(image=img2)
+  imgLabel.image = img2
+
+def atualiza_pos_rep1(value):
+  global pos_rot
+  global pos_rep1
+  pos_rep1 = value
+  try:
+    imgPath = "imagens/" + pos_rot + "-" + value + ".png"
+    img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  except:
+    imgPath = "imagens/" + value + "-" + pos_rot + ".png"
+    img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  imgLabel.configure(image=img2)
+  imgLabel.image = img2
+
+def atualiza_pos_rep2(value):
+  global pos_rot
+  global pos_rep1
+  global pos_rep2
+  pos_rep2 = value
+  imgPath = "imagens/" + value + ".png"
+  img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  imgLabel.configure(image=img2)
+  imgLabel.image = img2
+
+def atualiza_pos_rep3(value):
+  global pos_rot
+  global pos_rep1
+  global pos_rep2
+  global pos_rep3
+  pos_rep3 = value
   imgPath = "imagens/" + value + ".png"
   img2 = ImageTk.PhotoImage(Image.open(imgPath))
   imgLabel.configure(image=img2)
@@ -118,7 +154,7 @@ for item in comodostxt:
 clicked = StringVar()
 #clicked.set(router_options[0])
 
-OptionMenu(root, clicked, *router_options, command=atualiza_imagem).pack(padx=100)
+OptionMenu(root, clicked, *router_options, command=atualiza_pos_rot).pack(padx=100)
 
 
 
@@ -130,7 +166,7 @@ for item in comodostxt:
     rep1_options.append(item)
 clicked = StringVar()
 clicked.set(rep1_options[0])
-OptionMenu(root, clicked, *rep1_options).pack(padx=0)
+OptionMenu(root, clicked, *rep1_options, command=atualiza_pos_rep1).pack(padx=0)
 
 rep2_options = []
 for item in comodostxt:
