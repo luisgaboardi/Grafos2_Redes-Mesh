@@ -7,7 +7,7 @@ root = Tk()
 root.title("Redes Mesh e seu trajeto até os dispositivos")
 root.geometry("675x900")
 
-intro = Label(root, text="\nFoi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais dois repetidores Mesh, sendo o posicionamento deles arbitrário por você.\nObs: Quanto menor o número de repetidores percorridos, melhor é a qualidade do sinal.\n")
+intro = Label(root, text="\nFoi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais três repetidores Mesh, sendo o posicionamento deles arbitrário por você.\nObs: Quanto menor o número de repetidores percorridos, melhor é a qualidade do sinal.\n")
 intro.pack()
 
 imagem = PhotoImage(file="imagens/planta.png")
@@ -99,10 +99,10 @@ comodos = {0 'Suite Master':    ['Closet Master', 'Media'],
 localDeAcesso = {}
 
 def atualiza_imagem(value):
-  if value == 'Media':
-    img2 = ImageTk.PhotoImage(Image.open("imagens/media.png"))
-    imgLabel.configure(image=img2)
-    imgLabel.image = img2
+  imgPath = "imagens/" + value + ".png"
+  img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  imgLabel.configure(image=img2)
+  imgLabel.image = img2
 
 
 label = Label(text="_________________________________________________________________")
@@ -116,13 +116,13 @@ router_options = []
 for item in comodostxt:
     router_options.append(item)
 clicked = StringVar()
-clicked.set(router_options[0])
+#clicked.set(router_options[0])
 
 OptionMenu(root, clicked, *router_options, command=atualiza_imagem).pack(padx=100)
 
 
 
-label = Label(text="\nSelecione o cômodo onde será posicionado o primeiro repetidor:")
+label = Label(text="\nSelecione os cômodos onde serão posicionados os repetidores:")
 label.pack()
 
 rep1_options = []
@@ -130,20 +130,21 @@ for item in comodostxt:
     rep1_options.append(item)
 clicked = StringVar()
 clicked.set(rep1_options[0])
-
-OptionMenu(root, clicked, *rep1_options).pack(padx=100)
-
-
-label = Label(text="\nSelecione o cômodo do segundo repetidor:")
-label.pack()
+OptionMenu(root, clicked, *rep1_options).pack(padx=0)
 
 rep2_options = []
 for item in comodostxt:
     rep2_options.append(item)
 clicked = StringVar()
 clicked.set(rep2_options[0])
-
 OptionMenu(root, clicked, *rep2_options).pack(padx=100)
+
+rep3_options = []
+for item in comodostxt:
+    rep3_options.append(item)
+clicked = StringVar()
+clicked.set(rep3_options[0])
+OptionMenu(root, clicked, *rep3_options).pack(padx=100)
 
 
 label = Label(text="_________________________________________________________________")
