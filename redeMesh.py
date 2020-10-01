@@ -10,7 +10,7 @@ root.geometry("675x900")
 intro = Label(root, text="\nFoi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais três repetidores Mesh, sendo o posicionamento deles arbitrário por você.\nObs: Quanto menor o número de repetidores percorridos, melhor é a qualidade do sinal.\n")
 intro.pack()
 
-imagem = PhotoImage(file="imagens/planta.png")
+imagem = PhotoImage(file="imagens/Individual/planta.png")
 imgLabel = Label(root, image=imagem)
 imgLabel.pack()
 
@@ -52,6 +52,7 @@ comodos[4][3] = 1
 comodos[4][4] = 1
 
 #Media
+comodos[5][0] = 1
 comodos[5][1] = 1
 comodos[5][5] = 1
 comodos[5][6] = 1
@@ -86,7 +87,7 @@ comodos = {0 'Suite Master':    ['Closet Master', 'Media'],
            2 'Closet Quarto 3': ['Quarto 3', 'Quarto 2', 'Closet Master'],
            3 'Quarto 3':        ['Quarto 2', 'Closet Master', 'Closet Quarto 3'],
            4 'Quarto 2':        ['Quarto 3', 'Closet Master', 'Closet Quarto 3'],
-           5 'Media':           ['Closet Master', 'Escritório'],
+           5 'Media':           ['Suite Master', Closet Master', 'Escritório'],
            6 'Escritório':      ['Media', 'Cozinha'],
            7 'Cozinha':         ['Sala de Jantar', 'Escritório', 'Sala'],
            8 'Sala de Jantar':  ['Cozinha', 'Sala'],
@@ -97,11 +98,14 @@ comodos = {0 'Suite Master':    ['Closet Master', 'Media'],
 localDeAcesso = {}
 pos_rot = ''
 pos_rep1 = ''
+pos_rep2 = ''
+pos_rep3 = ''
+
 
 def atualiza_pos_rot(value):
   global pos_rot
   pos_rot = value
-  imgPath = "imagens/" + value + ".png"
+  imgPath = "imagens/Individual/" + value + ".png"
   img2 = ImageTk.PhotoImage(Image.open(imgPath))
   imgLabel.configure(image=img2)
   imgLabel.image = img2
@@ -111,10 +115,10 @@ def atualiza_pos_rep1(value):
   global pos_rep1
   pos_rep1 = value
   try:
-    imgPath = "imagens/" + pos_rot + "-" + value + ".png"
+    imgPath = "imagens/Duplas/" + pos_rot + "-" + pos_rep1 + ".png"
     img2 = ImageTk.PhotoImage(Image.open(imgPath))
   except:
-    imgPath = "imagens/" + value + "-" + pos_rot + ".png"
+    imgPath = "imagens/Duplas/" + pos_rep1 + "-" + pos_rot + ".png"
     img2 = ImageTk.PhotoImage(Image.open(imgPath))
   imgLabel.configure(image=img2)
   imgLabel.image = img2
@@ -124,10 +128,18 @@ def atualiza_pos_rep2(value):
   global pos_rep1
   global pos_rep2
   pos_rep2 = value
-  imgPath = "imagens/" + value + ".png"
-  img2 = ImageTk.PhotoImage(Image.open(imgPath))
-  imgLabel.configure(image=img2)
-  imgLabel.image = img2
+  pos = []
+  pos.append(pos_rot)
+  pos.append(pos_rep1)
+  pos.append(pos_rep2)
+  pos.sort()
+  try:
+    imgPath = "imagens/Trios/" + pos[0] + "-" + pos[1] + '-' + pos[2] + ".png"
+    img2 = ImageTk.PhotoImage(Image.open(imgPath))
+    imgLabel.configure(image=img2)
+    imgLabel.image = img2
+  except:
+    pass
 
 def atualiza_pos_rep3(value):
   global pos_rot
@@ -135,8 +147,12 @@ def atualiza_pos_rep3(value):
   global pos_rep2
   global pos_rep3
   pos_rep3 = value
-  imgPath = "imagens/" + value + ".png"
-  img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  try:
+    imgPath = "imagens/" + pos_rot + "-" + pos_rep1 + '-' + pos_rep2 + ".png"
+    img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  except:
+    imgPath = "imagens/" + pos_rot + "-" + pos_rep2 + '-' + pos_rep1 + ".png"
+    img2 = ImageTk.PhotoImage(Image.open(imgPath))
   imgLabel.configure(image=img2)
   imgLabel.image = img2
 
@@ -165,22 +181,22 @@ rep1_options = []
 for item in comodostxt:
     rep1_options.append(item)
 clicked = StringVar()
-clicked.set(rep1_options[0])
+#clicked.set(rep1_options[0])
 OptionMenu(root, clicked, *rep1_options, command=atualiza_pos_rep1).pack(padx=0)
 
 rep2_options = []
 for item in comodostxt:
     rep2_options.append(item)
 clicked = StringVar()
-clicked.set(rep2_options[0])
-OptionMenu(root, clicked, *rep2_options).pack(padx=100)
+#clicked.set(rep2_options[0])
+OptionMenu(root, clicked, *rep2_options, command=atualiza_pos_rep2).pack(padx=100)
 
 rep3_options = []
 for item in comodostxt:
     rep3_options.append(item)
 clicked = StringVar()
-clicked.set(rep3_options[0])
-OptionMenu(root, clicked, *rep3_options).pack(padx=100)
+#clicked.set(rep3_options[0])
+OptionMenu(root, clicked, *rep3_options, command=atualiza_pos_rep3).pack(padx=100)
 
 
 label = Label(text="_________________________________________________________________")
