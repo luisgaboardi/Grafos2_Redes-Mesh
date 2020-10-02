@@ -135,19 +135,24 @@ def atualiza_pos_rep2(value):
 
 
 def atualiza_pos_rep3(value):
-    global pos_rot
-    global pos_rep1
-    global pos_rep2
-    global pos_rep3
-    pos_rep3 = value
-    try:
-        imgPath = "imagens/" + pos_rot + "-" + pos_rep1 + '-' + pos_rep2 + ".png"
-        img2 = ImageTk.PhotoImage(Image.open(imgPath))
-    except:
-        imgPath = "imagens/" + pos_rot + "-" + pos_rep2 + '-' + pos_rep1 + ".png"
-        img2 = ImageTk.PhotoImage(Image.open(imgPath))
+  global pos_rot
+  global pos_rep1
+  global pos_rep2
+  global pos_rep3
+  pos_rep3 = value
+  pos = []
+  pos.append(pos_rot)
+  pos.append(pos_rep1)
+  pos.append(pos_rep2)
+  pos.append(pos_rep3)
+  pos.sort()
+  try:
+    imgPath = "imagens/Quatro/" + pos[0] + "-" + pos[1] + '-' + pos[2] + '-' + pos[3] + ".png"
+    img2 = ImageTk.PhotoImage(Image.open(imgPath))
     imgLabel.configure(image=img2)
     imgLabel.image = img2
+  except:
+    pass
 
 # A = adjacency matrix, u = vertex u, v = vertex v
 
