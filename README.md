@@ -57,11 +57,11 @@ Ou
 ## Uso
 
 1. No diretório do projeto, execute, com Python 3.X, o arquivo de extensão .py com o comando: <br><br>
-   `python3 redeMesh.py` <br>
-   <br>2. Se a instalação foi bem sucedida, a seguinte janela foi aberta: <br><br>
-   ![](Main.png) <br>
-   <br>3. Tendo a imagem da planta da casa como referência visual, escolha os cômodos nos quais estão: o roteador, três repetidores e o celular. <br><br>
-   ![](Select.png) <br>
-   <br>4. O aplicativo irá calcular a distância percorrida do sinal. <br><br>
-   ![](End.png) <br>
-   <br>5. O passo 4 deve ser repetido caso a estação inicial seja alterada. <br><br>
+   `python3 redeMesh.py` <br><br>
+2. Se a instalação foi bem sucedida, a seguinte janela foi aberta: <br><br>
+   ![](Main.png) <br><br>
+3. Tendo a imagem da planta da casa como referência visual, escolha os cômodos nos quais estão: o roteador, três repetidores e o celular. <br><br>
+   ![](Select.png) <br><br>
+4. O aplicativo irá calcular a distância percorrida do sinal. <br><br>
+   ![](End.png) <br><br>
+5. O passo 4 deve ser repetido caso a estação inicial seja alterada. <br><br>
