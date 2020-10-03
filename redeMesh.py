@@ -25,22 +25,35 @@ comodos = {'Suite Master':    {'Closet Master': 3.2, 'Media': 3.5},
            'Quarto 3':        {'Quarto 2': 3.4, 'Closet Master': 2.6, 'Closet Quarto 3': 2.7},
            'Quarto 2':        {'Quarto 3': 2.2, 'Closet Master': 3.6, 'Closet Quarto 3': 2.7},
            'Media':           {'Suite Master': 4, 'Escritório': 2.7},
-           'Escritório':      {'Media': 2.7, 'Cozinha': 2.6, 'Sala': 3.1},
+           'Escritorio':      {'Media': 2.7, 'Cozinha': 2.6, 'Sala': 3.1},
            'Cozinha':         {'Sala de Jantar': 3.5, 'Escritório': 2.6, 'Sala': 2.2},
            'Sala de Jantar':  {'Cozinha': 3.5},
            'Sala':            {'Escritório': 3.1, 'Cozinha': 2.2}
            }
 
-
-localDeAcesso = {}
+comodosAcess = {}
 pos_rot = ''
+flagR = 0
 pos_rep1 = ''
+flag1 = 0
 pos_rep2 = ''
+flag2 = 0
 pos_rep3 = ''
+flag3 = 0
+flagCel = 0
 
 
 def atualiza_pos_rot(value):
     global pos_rot
+    global comodosAcess
+    comodosAcess = {}
+    for c in comodos: 
+        if(c == value):
+            comodosAcess[value] = comodos[value]
+            print('\nRot: ')
+            for com in comodosAcess:
+                print(com)
+    
     pos_rot = value
     imgPath = "imagens/Individual/" + value + ".png"
     img2 = ImageTk.PhotoImage(Image.open(imgPath))
@@ -52,21 +65,66 @@ def atualiza_pos_rep1(value):
     global pos_rot
     global pos_rep1
     pos_rep1 = value
+
+    global comodosAcess
+    global flag1
+    if(flag1 == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flag1 = 0
+    global flag2
+    if(flag2 == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flag2 = 0
+    global flag3
+    if(flag3 == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flag3 = 0
+
+    for c in comodos: 
+        if(c == value):
+            flag1 = 1;
+            comodosAcess[value] = comodos[value]
+            print('\nRep1: ')
+            for com in comodosAcess:
+                print(com)
+
     try:
         imgPath = "imagens/Duplas/" + pos_rot + "-" + pos_rep1 + ".png"
         img2 = ImageTk.PhotoImage(Image.open(imgPath))
     except:
         imgPath = "imagens/Duplas/" + pos_rep1 + "-" + pos_rot + ".png"
         img2 = ImageTk.PhotoImage(Image.open(imgPath))
-    imgLabel.configure(image=img2)
-    imgLabel.image = img2
-
+    try:
+        imgLabel.configure(image=img2)
+        imgLabel.image = img2
+    except:
+        pass
 
 def atualiza_pos_rep2(value):
     global pos_rot
     global pos_rep1
     global pos_rep2
     pos_rep2 = value
+
+    global comodosAcess
+
+    global flag2
+    if(flag2 == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flag2 = 0
+    global flag3
+    if(flag3 == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flag3 = 0
+    
+    for c in comodos: 
+        if(c == value):
+            flag2 = 1;
+            comodosAcess[value] = comodos[value]
+            print('\nRep2: ')
+            for com in comodosAcess:
+                print(com)
+
     pos = []
     pos.append(pos_rot)
     pos.append(pos_rep1)
@@ -88,6 +146,22 @@ def atualiza_pos_rep3(value):
     global pos_rep2
     global pos_rep3
     pos_rep3 = value
+
+    global comodosAcess
+
+    global flag3
+    if(flag3 == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flag3 = 0
+
+    for c in comodos: 
+        if(c == value):
+            flag3 = 1;
+            comodosAcess[value] = comodos[value]
+            print('\nRep3: ')
+            for com in comodosAcess:
+                print(com)
+
     pos = []
     pos.append(pos_rot)
     pos.append(pos_rep1)
@@ -102,6 +176,23 @@ def atualiza_pos_rep3(value):
         imgLabel.image = img2
     except:
         pass
+
+def atualiza_pos_cel(value):
+
+    global comodosAcess
+    global flagCel
+    if(flagCel == 1  and len(comodosAcess) > 1):
+        comodosAcess.popitem()
+        flagCel = 0
+
+    for c in comodos: 
+        if(c == value):
+            flagCel = 1;
+            comodosAcess[value] = comodos[value]
+            print('\nCel: ')
+            for com in comodosAcess:
+                print(com)
+
 
 
 def Prim(G, start):
@@ -125,7 +216,7 @@ def Prim(G, start):
     return mst
 
 
-print(Prim(comodos, 'Sala'))
+#print(Prim(comodos, 'Sala'))
 
 label = Label(
     text="_________________________________________________________________")
@@ -184,14 +275,21 @@ device_options = []
 for item in comodostxt:
     device_options.append(item)
 clicked = StringVar()
-clicked.set(device_options[0])
+#clicked.set(device_options[0])
 
-OptionMenu(root, clicked, *device_options).pack(padx=100)
+OptionMenu(root, clicked, *device_options,
+            command=atualiza_pos_cel).pack(padx=100)
 
 
 routeLabel = Label(
     root, text="\nA rota percorrida do roteador até o dispositivo foi:", pady=5)
 routeLabel.pack()
+
+pos = []
+pos.append(pos_rot)
+pos.append(pos_rep1)
+pos.append(pos_rep2)
+pos.append(pos_rep3)
 
 melhorCaminho = Label(root, text="", wraplength=200, pady=5, padx=20).pack()
 
