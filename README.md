@@ -18,10 +18,6 @@ https://youtu.be/36-AiE_h-LM
 
 &nbsp;&nbsp;&nbsp;&nbsp; Uma rede mesh é uma alternativa ao protocolo LAN (Local Area Network) padrão. Ela é composta de vários nós (roteadores) que, juntos, exercem a função de uma grande e única rede, possibilitando a conexão do usuário com qualquer um dos nós. Os nós fazem a função de repetidores e cada nó está ligado a um ou mais outros nós. Desta maneira é possível transmitir mensagens de um nó a outro por diferentes caminhos. Este aplicativo tem como objetivo simular uma conexão de um celular com um roteador, por intermédio de repetidores. Implementaremos o algoritmo de Prim para descobrir a menor rota entre os dois.
 
-## Screenshots
-
-![](Main.png) ![](End.png)
-
 ## Requisitos
 
 Para a execução do programa, se faz necessária a instalação dos seguintes componentes via terminal:
