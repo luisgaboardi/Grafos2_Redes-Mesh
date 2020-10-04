@@ -19,19 +19,73 @@ imgLabel.pack()
 comodostxt = ['Suite Master', 'Closet Master', 'Closet Quarto 3', 'Quarto 3',
               'Quarto 2', 'Media', 'Escritorio', 'Cozinha', 'Sala de Jantar', 'Sala']
 
-comodos = {'Suite Master':    {'Closet Master': 3.2, 'Media': 3.5},
-           'Closet Master':   {'Closet Quarto 3': 3.2, 'Quarto 3': 2.5, 'Quarto 2': 3.4, 'Media': 2.2, 'Suite Master': 4},
-           'Closet Quarto 3': {'Quarto 3': 2.5, 'Quarto 2': 2.6, 'Closet Master': 3.6},
-           'Quarto 3':        {'Quarto 2': 3.4, 'Closet Master': 2.6, 'Closet Quarto 3': 2.7},
-           'Quarto 2':        {'Quarto 3': 2.2, 'Closet Master': 3.6, 'Closet Quarto 3': 2.7},
-           'Media':           {'Suite Master': 4, 'Escritório': 2.7},
-           'Escritorio':      {'Media': 2.7, 'Cozinha': 2.6, 'Sala': 3.1},
-           'Cozinha':         {'Sala de Jantar': 3.5, 'Escritório': 2.6, 'Sala': 2.2},
-           'Sala de Jantar':  {'Cozinha': 3.5},
-           'Sala':            {'Escritório': 3.1, 'Cozinha': 2.2}
+comodosdict = {'Suite Master': {   'Closet Master':   3.2, 'Media':         3.5 },
+            'Closet Master':   {   'Closet Quarto 3': 3.2, 'Quarto 3':      2.5, 'Quarto 2':        3.4, 'Media': 2.2, 'Suite Master': 4},
+            'Closet Quarto 3': {   'Quarto 3':        2.5, 'Quarto 2':      2.6, 'Closet Master':   3.6},
+            'Quarto 3':        {   'Quarto 2':        3.4, 'Closet Master': 2.6, 'Closet Quarto 3': 2.7},
+            'Quarto 2':        {   'Quarto 3':        2.2, 'Closet Master': 3.6, 'Closet Quarto 3': 2.7},
+            'Media':           {   'Suite Master':    4.0, 'Escritório':    2.7, 'Closet Master':   3.5},
+            'Escritorio':      {   'Media':           2.7, 'Cozinha':       2.6, 'Sala':            3.1},
+            'Cozinha':         {   'Sala de Jantar':  3.5, 'Escritório':    2.6, 'Sala':            2.2},
+            'Sala de Jantar':  {   'Cozinha':         3.5 },
+            'Sala':            {   'Escritório':      3.1, 'Cozinha':       2.2 }
            }
 
+comodos = []
+for i in range(10):
+  comodos = comodos + [[0]*10]
+
+# Definindo o alcance de cada cômodo (arestas) utlizando matriz de arestas
+#Suite Master
+comodos[0][1] = 3.2
+comodos[0][5] = 3.5
+
+#Closet Master
+comodos[1][0] = 4.0
+comodos[1][2] = 3.2
+comodos[1][3] = 2.5
+comodos[1][4] = 3.4
+comodos[1][5] = 2.2
+
+#Closet Quarto 3
+comodos[2][1] = 3.6
+comodos[2][3] = 2.5
+comodos[2][4] = 2.6
+
+#Quarto 3
+comodos[3][1] = 2.6
+comodos[3][2] = 2.7
+comodos[3][4] = 3.4
+
+#Quarto 2
+comodos[4][1] = 3.6
+comodos[4][2] = 2.7
+comodos[4][3] = 2.2
+
+#Media
+comodos[5][0] = 4
+comodos[5][1] = 3.5
+comodos[5][6] = 2.7
+
+#Escritório
+comodos[6][5] = 2.7
+comodos[6][7] = 2.6
+comodos[6][9] = 3.1
+
+#Cozinha
+comodos[7][6] = 2.6
+comodos[7][8] = 3.5
+comodos[7][9] = 2.2
+
+#Sala de Jantar
+comodos[8][7] = 3.5
+
+#Sala
+comodos[9][6] = 3.1
+comodos[9][7] = 2.2
+
 comodosAcess = {}
+comodosAcessMat = []
 pos_rot = ''
 flagR = 0
 pos_rep1 = ''
@@ -40,6 +94,7 @@ pos_rep2 = ''
 flag2 = 0
 pos_rep3 = ''
 flag3 = 0
+pos_cel = ''
 flagCel = 0
 
 
@@ -47,12 +102,14 @@ def atualiza_pos_rot(value):
     global pos_rot
     global comodosAcess
     comodosAcess = {}
-    for c in comodos: 
+
+    aux = 0
+    for c in comodosdict: 
         if(c == value):
-            comodosAcess[value] = comodos[value]
-            print('\nRot: ')
-            for com in comodosAcess:
-                print(com)
+            comodosAcess[value] = comodosdict[value]
+            comodosAcessMat.append(comodos[aux]);
+            
+        aux+=1
     
     pos_rot = value
     imgPath = "imagens/Individual/" + value + ".png"
@@ -80,13 +137,15 @@ def atualiza_pos_rep1(value):
         comodosAcess.popitem()
         flag3 = 0
 
-    for c in comodos: 
+    
+    aux = 0;
+    for c in comodosdict: 
         if(c == value):
-            flag1 = 1;
-            comodosAcess[value] = comodos[value]
-            print('\nRep1: ')
-            for com in comodosAcess:
-                print(com)
+            flag1 = 1
+            comodosAcess[value] = comodosdict[value]
+            comodosAcessMat.append(comodos[aux]);
+            
+        aux += 1
 
     try:
         imgPath = "imagens/Duplas/" + pos_rot + "-" + pos_rep1 + ".png"
@@ -117,13 +176,15 @@ def atualiza_pos_rep2(value):
         comodosAcess.popitem()
         flag3 = 0
     
-    for c in comodos: 
+    
+    aux = 0;
+    for c in comodosdict: 
         if(c == value):
-            flag2 = 1;
-            comodosAcess[value] = comodos[value]
-            print('\nRep2: ')
-            for com in comodosAcess:
-                print(com)
+            flag2 = 1
+            comodosAcess[value] = comodosdict[value]
+            comodosAcessMat.append(comodos[aux]);
+            
+        aux += 1
 
     pos = []
     pos.append(pos_rot)
@@ -154,13 +215,15 @@ def atualiza_pos_rep3(value):
         comodosAcess.popitem()
         flag3 = 0
 
-    for c in comodos: 
+    
+    aux = 0;
+    for c in comodosdict: 
         if(c == value):
-            flag3 = 1;
-            comodosAcess[value] = comodos[value]
-            print('\nRep3: ')
-            for com in comodosAcess:
-                print(com)
+            flag3 = 1
+            comodosAcess[value] = comodosdict[value]
+            comodosAcessMat.append(comodos[aux]);
+            
+        aux += 1
 
     pos = []
     pos.append(pos_rot)
@@ -181,42 +244,86 @@ def atualiza_pos_cel(value):
 
     global comodosAcess
     global flagCel
+    global pos_cel
+    pos_cel = value
     if(flagCel == 1  and len(comodosAcess) > 1):
         comodosAcess.popitem()
         flagCel = 0
 
-    for c in comodos: 
+    
+    aux = 0;
+    for c in comodosdict: 
         if(c == value):
-            flagCel = 1;
-            comodosAcess[value] = comodos[value]
-            print('\nCel: ')
-            for com in comodosAcess:
-                print(com)
+            flagCel = 1
+            comodosAcess[value] = comodosdict[value]
+            comodosAcessMat.append(comodos[aux]);
+            
+        aux += 1
+
+    no_cel = 0
+    for i in comodostxt:
+        if(i == pos_cel):
+            break;
+        no_cel+=1
+
+    dijkstra(len(comodosAcessMat)-1)
+
+dist = []
+
+# A utility function to find the vertex with  
+    # minimum distance value, from the set of vertices  
+    # not yet included in shortest path tree 
+def minDistance(dist, sptSet): 
+    # Initilaize minimum distance for next node 
+    min = sys.maxsize
+    min_index = -1
+    # Search not nearest vertex not in the  
+    # shortest path tree
+    for v in range(len(comodosAcessMat)):
+        if dist[v] < min and sptSet[v] == False: 
+            min = dist[v] 
+            min_index = v
+
+    if(min_index == -1):
+        print('Não rolou')
+        exit(-1)
+        #print('\n\nCocô\n\n')
 
 
 
-def Prim(G, start):
-    mst = defaultdict(set)
-    visited = set([start])
-    edges = [
-        (cost, start, to)
-        for to, cost in G[start].items()
-    ]
-    heapq.heapify(edges)
-
-    while edges:
-        cost, frm, to = heapq.heappop(edges)
-        if to not in visited:
-            visited.add(to)
-            mst[frm].add(to)
-            for to_next, cost in G[to].items():
-                if to_next not in visited:
-                    heapq.heappush(edges, (cost, to, to_next))
-
-    return mst
 
 
-#print(Prim(comodos, 'Sala'))
+    # Funtion that implements Dijkstra's single source  
+    # shortest path algorithm for a graph represented  
+    # using adjacency matrix representation 
+def dijkstra(src): 
+    global dist
+    dist = [sys.maxsize] * (len(comodosAcessMat))
+    dist[src] = 0
+    sptSet = [False] * (len(comodosAcessMat))
+
+    for cout in range(len(comodosAcessMat)):
+   
+        # Pick the minimum distance vertex from  
+        # the set of vertices not yet processed.  
+        # u is always equal to src in first iteration 
+        u = minDistance(dist, sptSet) 
+   
+        # Put the minimum distance vertex in the  
+        # shotest path tree 
+        sptSet[u] = True
+   
+        # Update dist value of the adjacent vertices  
+        # of the picked vertex only if the current  
+        # distance is greater than new distance and 
+        # the vertex in not in the shotest path tree 
+        for v in range(len(comodosAcessMat)):
+            print(v)
+            if comodosAcessMat[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + comodosAcessMat[u][v]: 
+                dist[v] = dist[u] + comodosAcessMat[u][v]
+    
+    solution = str(dist[0]) + ' Metros através dos repetidores'
+    print(solution)
 
 label = Label(
     text="_________________________________________________________________")
@@ -230,7 +337,6 @@ router_options = []
 for item in comodostxt:
     router_options.append(item)
 clicked = StringVar()
-# clicked.set(router_options[0])
 
 OptionMenu(root, clicked, *router_options,
            command=atualiza_pos_rot).pack(padx=100)
@@ -244,23 +350,25 @@ rep1_options = []
 for item in comodostxt:
     rep1_options.append(item)
 clicked = StringVar()
-# clicked.set(rep1_options[0])
+
 OptionMenu(root, clicked, *rep1_options,
            command=atualiza_pos_rep1).pack(padx=0)
+
 
 rep2_options = []
 for item in comodostxt:
     rep2_options.append(item)
 clicked = StringVar()
-# clicked.set(rep2_options[0])
+
 OptionMenu(root, clicked, *rep2_options,
            command=atualiza_pos_rep2).pack(padx=100)
+
 
 rep3_options = []
 for item in comodostxt:
     rep3_options.append(item)
 clicked = StringVar()
-# clicked.set(rep3_options[0])
+
 OptionMenu(root, clicked, *rep3_options,
            command=atualiza_pos_rep3).pack(padx=100)
 
@@ -275,27 +383,17 @@ device_options = []
 for item in comodostxt:
     device_options.append(item)
 clicked = StringVar()
-#clicked.set(device_options[0])
 
 OptionMenu(root, clicked, *device_options,
             command=atualiza_pos_cel).pack(padx=100)
 
-
 routeLabel = Label(
-    root, text="\nA rota percorrida do roteador até o dispositivo foi:", pady=5)
+    root, text="\nA menor distância que o sinal do roteador percorre até o dispositivo é:", pady=5)
 routeLabel.pack()
 
-pos = []
-pos.append(pos_rot)
-pos.append(pos_rep1)
-pos.append(pos_rep2)
-pos.append(pos_rep3)
+#solution = str(dist[0]) + ' Metros através dos repetidores'
 
-melhorCaminho = Label(root, text="", wraplength=200, pady=5, padx=20).pack()
-
-resultLabel = Label(
-    root, text="\nEstá satisfeito com o resultado? Se não, reposicione os dispositivos de internet\n", pady=5)
-resultLabel.pack()
+Label(root, text='', wraplength=200, pady=5, padx=20).pack()
 
 
 root.mainloop()
