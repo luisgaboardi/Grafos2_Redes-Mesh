@@ -20,13 +20,13 @@ comodostxt = ['Suite Master', 'Closet Master', 'Closet Quarto 3', 'Quarto 3',
               'Quarto 2', 'Media', 'Escritorio', 'Cozinha', 'Sala de Jantar', 'Sala']
 
 comodosdict = {'Suite Master': {'Closet Master':   3.2, 'Media':         3.5},
-               'Closet Master':   {'Closet Quarto 3': 3.2, 'Quarto 3':      2.5, 'Quarto 2':        3.4, 'Media': 2.2, 'Suite Master': 4},
-               'Closet Quarto 3': {'Quarto 3':        2.5, 'Quarto 2':      2.6, 'Closet Master':   3.6},
-               'Quarto 3':        {'Quarto 2':        3.4, 'Closet Master': 2.6, 'Closet Quarto 3': 2.7},
-               'Quarto 2':        {'Quarto 3':        2.2, 'Closet Master': 3.4, 'Closet Quarto 3': 2.7},
-               'Media':           {'Suite Master':    4.0, 'Escritório':    2.7, 'Closet Master':   3.5},
-               'Escritorio':      {'Media':           2.7, 'Cozinha':       2.6, 'Sala':            3.1},
-               'Cozinha':         {'Sala de Jantar':  3.5, 'Escritório':    2.6, 'Sala':            2.2},
+               'Closet Master':   {'Closet Quarto 3': 2.5, 'Quarto 3':      3.4, 'Quarto 2':        2.1, 'Suite Master': 3.2},
+               'Closet Quarto 3': {'Quarto 3':        2.5, 'Quarto 2':      3.6, 'Closet Master':   2.5},
+               'Quarto 3':        {'Quarto 2':        2.7, 'Closet Master': 3.4, 'Closet Quarto 3': 2.5},
+               'Quarto 2':        {'Quarto 3':        2.7, 'Closet Master': 2.2, 'Closet Quarto 3': 3.6},
+               'Media':           {'Escritório':      2.7, 'Closet Master': 3.5},
+               'Escritorio':      {'Media':           2.7, 'Cozinha':       3.1, 'Sala':            3.1},
+               'Cozinha':         {'Sala de Jantar':  3.5, 'Escritório':    3.1, 'Sala':            2.2},
                'Sala de Jantar':  {'Cozinha':         3.5},
                'Sala':            {'Escritório':      3.1, 'Cozinha':       2.2}
                }
@@ -41,39 +41,37 @@ comodos[0][1] = 3.2
 comodos[0][5] = 3.5
 
 # Closet Master
-comodos[1][0] = 4.0
-comodos[1][2] = 3.2
-comodos[1][3] = 2.5
-comodos[1][4] = 3.4
-comodos[1][5] = 2.2
+comodos[1][0] = 3.2
+comodos[1][2] = 2.5
+comodos[1][3] = 3.4
+comodos[1][4] = 2.1
 
 # Closet Quarto 3
-comodos[2][1] = 3.6
+comodos[2][1] = 2.5
 comodos[2][3] = 2.5
-comodos[2][4] = 2.6
+comodos[2][4] = 3.6
 
 # Quarto 3
-comodos[3][1] = 2.6
-comodos[3][2] = 2.7
-comodos[3][4] = 3.4
+comodos[3][1] = 3.4
+comodos[3][2] = 2.5
+comodos[3][4] = 2.7
 
 # Quarto 2
-comodos[4][1] = 3.4
-comodos[4][2] = 2.7
+comodos[4][1] = 2.1
+comodos[4][2] = 3.6
 comodos[4][3] = 2.2
 
 # Media
-comodos[5][0] = 4
-comodos[5][1] = 3.5
+comodos[5][0] = 3.5
 comodos[5][6] = 2.7
 
 # Escritório
 comodos[6][5] = 2.7
-comodos[6][7] = 2.6
+comodos[6][7] = 3.1
 comodos[6][9] = 3.1
 
 # Cozinha
-comodos[7][6] = 2.6
+comodos[7][6] = 3.1
 comodos[7][8] = 3.5
 comodos[7][9] = 2.2
 
@@ -397,8 +395,5 @@ routeLabel = Label(
 routeLabel.pack()
 
 #solution = dijkstra(len(comodosAcessMat)-1)
-
-global result
-
 
 root.mainloop()
