@@ -60,8 +60,8 @@ Ou
    `python3 redeMesh.py` <br><br>
 2. Se a instalação e execução foi bem sucedida, a seguinte janela foi aberta: <br><br>
    ![](imagens/Individual/planta.png) <br><br>
-3. Tendo a imagem da planta da casa como referência visual, escolha os cômodos nos quais estão: o roteador, três repetidores e o celular. <br><br>
-   ![](imagens/Quatro/ImagemExplicativa.png) <br><br>
-4. O aplicativo irá calcular a distância percorrida do sinal. <br><br>
+3. Tendo a imagem da planta da casa como referência visual, escolha os cômodos nos quais estão: o roteador, três repetidores. <br><br>
+   ![](imagens/Quatro/ImagemRoteadores.png) <br><br>
+4. Por fim, selecione um local que esteja na área de cobertura e o aplicativo calculará a distância percorrida do sinal. <br><br>
    ![](imagens/Quatro/ImagemFim.png) <br><br>
 5. Caso queira executar com outra combinação de locais, favor, reexecute o programa. <br><br>
