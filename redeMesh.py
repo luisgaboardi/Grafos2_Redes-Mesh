@@ -9,7 +9,7 @@ root = Tk()
 root.title("Redes Mesh e seu trajeto até os dispositivos")
 root.geometry("675x900")
 
-intro = Label(root, text="\nFoi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais três repetidores Mesh, sendo o posicionamento deles arbitrário por você.\nObs: Quanto menor o número de repetidores percorridos, melhor é a qualidade do sinal.\n")
+intro = Label(root, text="Foi delegada a você a missão de instalar uma soluçao de internet de uma casa.\nLhe foi informado que à sua disposição há:\nUm roteador e mais três repetidores Mesh, sendo o posicionamento deles arbitrário por você.", pady=10)
 intro.pack()
 
 imagem = PhotoImage(file="imagens/Individual/planta.png")
@@ -19,7 +19,7 @@ imgLabel.pack()
 comodostxt = ['Suite Master', 'Closet Master', 'Closet Quarto 3', 'Quarto 3',
               'Quarto 2', 'Media', 'Escritorio', 'Cozinha', 'Sala de Jantar', 'Sala']
 
-comodosdict = {'Suite Master': {'Closet Master':   3.2, 'Media':         3.5},
+comodosdict = {'Suite Master':    {'Closet Master':   3.2, 'Media':         3.5},
                'Closet Master':   {'Closet Quarto 3': 2.5, 'Quarto 3':      3.4, 'Quarto 2':        2.1, 'Suite Master': 3.2},
                'Closet Quarto 3': {'Quarto 3':        2.5, 'Quarto 2':      3.6, 'Closet Master':   2.5},
                'Quarto 3':        {'Quarto 2':        2.7, 'Closet Master': 3.4, 'Closet Quarto 3': 2.5},
@@ -27,7 +27,7 @@ comodosdict = {'Suite Master': {'Closet Master':   3.2, 'Media':         3.5},
                'Media':           {'Escritório':      2.7, 'Closet Master': 3.5},
                'Escritorio':      {'Media':           2.7, 'Cozinha':       3.1, 'Sala':            3.1},
                'Cozinha':         {'Sala de Jantar':  3.5, 'Escritório':    3.1, 'Sala':            2.2},
-               'Sala de Jantar':  {'Cozinha':         3.5},
+               'Sala de Jantar':  {'Cozinha':         3.5 },
                'Sala':            {'Escritório':      3.1, 'Cozinha':       2.2}
                }
 
@@ -286,7 +286,7 @@ def minDistance(dist, sptSet):
             min_index = v
 
     if(min_index == -1):
-        print('Não rolou')
+        print('Ocorreu um erro. Favor, sempre que executar o programa, siga os passos de execução do ReadMe.\nCaso o erro persista, utilize outra combinação de locais para os dispositivos.')
         exit(-1)
 
     return min_index
@@ -318,13 +318,11 @@ def dijkstra(src):
         # distance is greater than new distance and
         # the vertex in not in the shotest path tree
         for v in range(len(comodosAcessMat)):
-            print(v)
             if comodosAcessMat[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + comodosAcessMat[u][v]:
                 dist[v] = dist[u] + comodosAcessMat[u][v]
 
     global solution
     solution = str(dist[0]) + ' Metros através dos repetidores'
-    print(solution)
     result = Label(root, text=solution, wraplength=200, pady=5, padx=20).pack()
 
 
@@ -393,7 +391,5 @@ OptionMenu(root, clicked, *device_options,
 routeLabel = Label(
     root, text="\nA menor distância que o sinal do roteador percorre até o dispositivo é:", pady=5)
 routeLabel.pack()
-
-#solution = dijkstra(len(comodosAcessMat)-1)
 
 root.mainloop()

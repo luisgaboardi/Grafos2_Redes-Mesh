@@ -12,7 +12,7 @@
 
 ## Link para vídeo explicativo:
 
-https://www.loom.com/share/f8ec74d0bc02428699eb569b6a93df7e
+https://youtu.be/36-AiE_h-LM
 
 ## Sobre
 
@@ -58,10 +58,10 @@ Ou
 
 1. No diretório do projeto, execute, com Python 3.X, o arquivo de extensão .py com o comando: <br><br>
    `python3 redeMesh.py` <br><br>
-2. Se a instalação foi bem sucedida, a seguinte janela foi aberta: <br><br>
-   ![](Main.png) <br><br>
+2. Se a instalação e execução foi bem sucedida, a seguinte janela foi aberta: <br><br>
+   ![](imagens/Individual/planta.png) <br><br>
 3. Tendo a imagem da planta da casa como referência visual, escolha os cômodos nos quais estão: o roteador, três repetidores e o celular. <br><br>
-   ![](Select.png) <br><br>
+   ![](imagens/Quatro/ImagemExplicativa.png) <br><br>
 4. O aplicativo irá calcular a distância percorrida do sinal. <br><br>
-   ![](End.png) <br><br>
-5. O passo 4 deve ser repetido caso a estação inicial seja alterada. <br><br>
+   ![](imagens/Quatro/ImagemFim.png) <br><br>
+5. Caso queira executar com outra combinação de locais, favor, reexecute o programa. <br><br>
